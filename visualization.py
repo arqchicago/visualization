@@ -16,32 +16,32 @@ class visualization:
         return self.text_y_label
         
     @y_label.setter
-    def y_label(self, text_y_label):
-        return self.text_y_label
+    def y_label(self, text):
+        self.text_y_label = text
         
     @property
     def x_label(self):
         return self.text_x_label
         
     @x_label.setter
-    def x_label(self, text_x_label):
-        return self.text_x_label
+    def x_label(self, text):
+        self.text_x_label = text
         
     @property
     def plot_title(self):
         return self.text_plot_title
         
     @plot_title.setter
-    def plot_title(self, text_plot_title):
-        return self.text_plot_title
+    def plot_title(self, text):
+        self.text_plot_title = text
         
     @property
     def watermark(self):
         return self.text_watermark
         
-    @plot_title.setter
-    def watermark(self, text_watermark):
-        return self.text_watermark
+    @watermark.setter
+    def watermark(self, text):
+        self.text_watermark = text
 
     def plot(self, fig_name):
         mpl.style.use('seaborn')
