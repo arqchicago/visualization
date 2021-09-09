@@ -46,6 +46,11 @@ class visualization:
 
     def line_chart(self, fig_name):
         mpl.style.use('seaborn')
+
+        for axis in ['bottom','left']:  #'top', 'right'
+            self.ax.spines[axis].set_linewidth(2)
+            self.ax.spines[axis].set_color('red')
+          
         self.ax.plot(df['x'], df['y'], color='b', label='test')
         self.ax.set(title=self.text_plot_title)
         self.ax.set_xlabel(self.text_x_label)
