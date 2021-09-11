@@ -8,6 +8,7 @@ class visualization:
     def __init__(self):
         self.text_watermark = ''
         self.text_plot_title = ''
+        self.text_plot_suptitle = ''
         self.text_y_label = ''
         self.text_x_label = ''
         self.fig, self.ax = plt.subplots()
@@ -29,6 +30,14 @@ class visualization:
         self.text_x_label = text
         
     @property
+    def plot_suptitle(self):
+        return self.text_plot_suptitle
+        
+    @plot_suptitle.setter
+    def plot_suptitle(self, suptitle):
+        self.text_plot_suptitle = suptitle
+        
+    @property
     def plot_title(self):
         return self.text_plot_title
         
@@ -47,6 +56,8 @@ class visualization:
     def line_chart(self, fig_name):
         mpl.style.use('seaborn')
 
+        self.fig.suptitle(self.text_plot_suptitle, fontsize=16)
+
         for axis in ['bottom','left']:  #'top', 'right'
             self.ax.spines[axis].set_linewidth(2)
             self.ax.spines[axis].set_color('red')
@@ -64,6 +75,7 @@ if __name__ == "__main__":
     df = pd.read_csv('data/test.csv')
     line_chart1 = visualization()
     line_chart1.plot_title = 'Plot of Y vs X'
+    line_chart1.plot_suptitle = 'Figure Title'
     line_chart1.y_label = 'Y'
     line_chart1.x_label = 'X'
     #line_chart1.watermark = 'do not distribute'
