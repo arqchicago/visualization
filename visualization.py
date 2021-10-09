@@ -67,6 +67,7 @@ class visualization:
         self.ax.set_xlabel(self.text_x_label)
         self.ax.set_ylabel(self.text_y_label)
         self.ax.legend()
+        self.fig.text(0.85, 0.15, self.text_watermark, fontsize=25, color='gray', ha='right', va='bottom', alpha=0.5)
         plt.savefig(fig_name)
         plt.close()
 
@@ -78,5 +79,5 @@ if __name__ == "__main__":
     line_chart1.plot_suptitle = 'Figure Title'
     line_chart1.y_label = 'Y'
     line_chart1.x_label = 'X'
-    #line_chart1.watermark = 'do not distribute'
+    line_chart1.watermark = 'do not distribute'
     line_chart1.line_chart('fig1.png')
