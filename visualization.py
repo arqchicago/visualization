@@ -5,13 +5,13 @@ import numpy as np
 
 
 class visualization:
-    def __init__(self):
+    def __init__(self, df):
+        self.df = df
         self.text_watermark = ''
         self.text_plot_title = ''
         self.text_plot_suptitle = ''
         self.text_y_label = ''
         self.text_x_label = ''
-        self.fig, self.ax = plt.subplots()
 
     @property
     def y_label(self):
@@ -54,6 +54,7 @@ class visualization:
         self.text_watermark = text
 
     def line_chart(self, fig_name):
+        self.fig, self.ax = plt.subplots()
         mpl.style.use('seaborn')
 
         self.fig.suptitle(self.text_plot_suptitle, fontsize=16)
@@ -62,7 +63,7 @@ class visualization:
             self.ax.spines[axis].set_linewidth(2)
             self.ax.spines[axis].set_color('red')
           
-        self.ax.plot(df['x'], df['y'], color='b', label='test')
+        self.ax.plot(self.df['x'], self.df['y'], color='b', label='test')
         self.ax.set(title=self.text_plot_title)
         self.ax.set_xlabel(self.text_x_label)
         self.ax.set_ylabel(self.text_y_label)
@@ -74,10 +75,10 @@ class visualization:
         
 if __name__ == "__main__":
     df = pd.read_csv('data/test.csv')
-    line_chart1 = visualization()
-    line_chart1.plot_title = 'Plot of Y vs X'
-    line_chart1.plot_suptitle = 'Figure Title'
-    line_chart1.y_label = 'Y'
-    line_chart1.x_label = 'X'
-    line_chart1.watermark = 'do not distribute'
-    line_chart1.line_chart('fig1.png')
+    data_viz = visualization(df)
+    data_viz.plot_title = 'Plot of Y vs X'
+    data_viz.plot_suptitle = 'Figure Title'
+    data_viz.y_label = 'Y'
+    data_viz.x_label = 'X'
+    data_viz.watermark = 'do not distribute'
+    data_viz.line_chart('fig1.png')
