@@ -6,6 +6,7 @@ import numpy as np
 
 class visualization:
     def __init__(self, df):
+        mpl.style.use('seaborn')
         self.df = df
         self.text_watermark = ''
         self.text_plot_title = ''
@@ -55,7 +56,6 @@ class visualization:
 
     def line_chart(self, fig_name):
         self.fig, self.ax = plt.subplots()
-        mpl.style.use('seaborn')
 
         self.fig.suptitle(self.text_plot_suptitle, fontsize=16)
 
@@ -74,7 +74,6 @@ class visualization:
 
     def scatter(self, fig_name):
         self.fig, self.ax = plt.subplots()
-        mpl.style.use('seaborn')
 
         self.fig.suptitle(self.text_plot_suptitle, fontsize=16)
 
