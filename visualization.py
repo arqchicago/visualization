@@ -90,7 +90,16 @@ class visualization:
         plt.savefig(fig_name)
         plt.close()
 
-        
+    def boxplot(self, fig_name, var):
+        green_diamond = dict(markerfacecolor='g', marker='s')
+        fig, ax = plt.subplots()
+        ax.set_title('Basic Plot')
+        ax.boxplot(df[var], notch=True, flierprops=green_diamond)
+        plt.savefig(fig_name)
+        plt.close()
+    
+    
+    
 if __name__ == "__main__":
     df = pd.read_csv('data/test.csv')
     data_viz = visualization(df)
@@ -101,3 +110,4 @@ if __name__ == "__main__":
     data_viz.watermark = 'do not distribute'
     data_viz.line_chart('fig1.png')
     data_viz.scatter('fig2.png')
+    data_viz.boxplot('fig3.png', 'x')
