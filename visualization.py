@@ -94,7 +94,14 @@ class visualization:
         green_diamond = dict(markerfacecolor='g', marker='s')
         fig, ax = plt.subplots()
         ax.set_title('Basic Plot')
-        ax.boxplot(df[var], notch=True, flierprops=green_diamond)
+        boxplot = ax.boxplot(df[var], notch=True, flierprops=green_diamond, patch_artist=True)
+        for patch, color in zip(boxplot['boxes'], ['pink']):
+            patch.set_facecolor(color)
+            
+        for median in boxplot['medians']: 
+            median.set(color ='red', linewidth = 3) 
+        
+        
         plt.savefig(fig_name)
         plt.close()
     
