@@ -93,8 +93,9 @@ class visualization:
     def boxplot(self, fig_name, var):
         green_diamond = dict(markerfacecolor='g', marker='s')
         fig, ax = plt.subplots()
-        ax.set_title('Basic Plot')
-        boxplot = ax.boxplot(df[var], notch=True, flierprops=green_diamond, patch_artist=True)
+        ax.set_title('Boxplot - variable ' + var)
+        boxplot = ax.boxplot(df[var], notch=True, flierprops=green_diamond, patch_artist=True, showmeans=True)
+        plt.xticks([1], [var])
         for patch, color in zip(boxplot['boxes'], ['pink']):
             patch.set_facecolor(color)
             
