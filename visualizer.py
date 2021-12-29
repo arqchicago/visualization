@@ -110,3 +110,25 @@ class arq_viz:
         
         plt.savefig(fig_name)
         plt.close()
+
+    def histogram(self, fig_name, var_x):
+        self.fig, self.ax = plt.subplots()
+
+        self.fig.suptitle(self.text_plot_suptitle, fontsize=16)
+
+        for axis in ['bottom','left']:  #'top', 'right'
+            self.ax.spines[axis].set_linewidth(2)
+            self.ax.spines[axis].set_color('red')
+          
+        #self.ax.plot(self.df[var_x], self.df[var_y], color='b', label='test')
+        self.ax.set(title=self.text_plot_title)
+        self.ax.set_xlabel(self.text_x_label)
+        #self.ax.set_ylabel(self.text_y_label)
+        #self.ax.legend()
+        self.fig.text(0.45, 0.80, self.text_watermark, fontsize=25, color='gray', ha='right', va='bottom', alpha=0.5)
+        self.ax.hist(self.df[var_x], bins='auto')
+        plt.savefig(fig_name)
+        plt.close()
+        print(f'histogram created  [{fig_name}]')
+ 
+        
