@@ -4,7 +4,7 @@ import pandas as pd
 import numpy as np
 
 
-class visualization:
+class arq_viz:
     def __init__(self, df):
         mpl.style.use('seaborn')
         self.df = df
@@ -13,6 +13,7 @@ class visualization:
         self.text_plot_suptitle = ''
         self.text_y_label = ''
         self.text_x_label = ''
+        print(f'arqviz initiated')
 
     @property
     def y_label(self):
@@ -54,7 +55,7 @@ class visualization:
     def watermark(self, text):
         self.text_watermark = text
 
-    def line_chart(self, fig_name):
+    def line_chart(self, fig_name, var_x, var_y):
         self.fig, self.ax = plt.subplots()
 
         self.fig.suptitle(self.text_plot_suptitle, fontsize=16)
@@ -63,7 +64,7 @@ class visualization:
             self.ax.spines[axis].set_linewidth(2)
             self.ax.spines[axis].set_color('red')
           
-        self.ax.plot(self.df['x'], self.df['y'], color='b', label='test')
+        self.ax.plot(self.df[var_x], self.df[var_y], color='b', label='test')
         self.ax.set(title=self.text_plot_title)
         self.ax.set_xlabel(self.text_x_label)
         self.ax.set_ylabel(self.text_y_label)
@@ -71,8 +72,9 @@ class visualization:
         self.fig.text(0.85, 0.15, self.text_watermark, fontsize=25, color='gray', ha='right', va='bottom', alpha=0.5)
         plt.savefig(fig_name)
         plt.close()
+        print(f'line chart created  [{fig_name}]')
 
-    def scatter(self, fig_name):
+    def scatter(self, fig_name, var_x, var_y):
         self.fig, self.ax = plt.subplots()
 
         self.fig.suptitle(self.text_plot_suptitle, fontsize=16)
@@ -81,7 +83,7 @@ class visualization:
             self.ax.spines[axis].set_linewidth(2)
             self.ax.spines[axis].set_color('red')
           
-        self.ax.scatter(self.df['x'], self.df['y'], color='b', label='test')
+        self.ax.scatter(self.df[var_x], self.df[var_y], color='b', label='test')
         self.ax.set(title=self.text_plot_title)
         self.ax.set_xlabel(self.text_x_label)
         self.ax.set_ylabel(self.text_y_label)
@@ -89,33 +91,22 @@ class visualization:
         self.fig.text(0.85, 0.15, self.text_watermark, fontsize=25, color='gray', ha='right', va='bottom', alpha=0.5)
         plt.savefig(fig_name)
         plt.close()
+        print(f'scatter plot created  [{fig_name}]')
 
     def boxplot(self, fig_name, var):
         green_diamond = dict(markerfacecolor='g', marker='s')
         fig, ax = plt.subplots()
         ax.set_title('Boxplot - variable ' + var)
-        boxplot = ax.boxplot(df[var], notch=True, flierprops=green_diamond, patch_artist=True, showmeans=True)
+        boxplot = ax.boxplot(self.df[var], notch=True, flierprops=green_diamond, patch_artist=True, showmeans=True)
         plt.xticks([1], [var])
         for patch, color in zip(boxplot['boxes'], ['pink']):
             patch.set_facecolor(color)
             
         for median in boxplot['medians']: 
             median.set(color ='red', linewidth = 3) 
+            
+        print(f'boxplot created  [{fig_name}]')
         
         
         plt.savefig(fig_name)
         plt.close()
-    
-    
-    
-if __name__ == "__main__":
-    df = pd.read_csv('data/test.csv')
-    data_viz = visualization(df)
-    data_viz.plot_title = 'Plot of Y vs X'
-    data_viz.plot_suptitle = 'Figure Title'
-    data_viz.y_label = 'Y'
-    data_viz.x_label = 'X'
-    data_viz.watermark = 'do not distribute'
-    data_viz.line_chart('fig1.png')
-    data_viz.scatter('fig2.png')
-    data_viz.boxplot('fig3.png', 'x')
