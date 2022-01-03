@@ -29,4 +29,4 @@ if __name__ == "__main__":
     # create a histogram of variable 'y' vs 'x'
     data_viz.plot_title = 'Histogram of Y'
     data_viz.plot_suptitle = 'Figure Title'
-    data_viz.histogram('fig4.png', 'y')
+    data_viz.histogram('fig4.png', 'y', 20)

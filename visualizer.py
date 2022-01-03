@@ -111,7 +111,7 @@ class arq_viz:
         plt.savefig(fig_name)
         plt.close()
 
-    def histogram(self, fig_name, var_x):
+    def histogram(self, fig_name, var_x, num_bins):
         self.fig, self.ax = plt.subplots()
 
         self.fig.suptitle(self.text_plot_suptitle, fontsize=16)
@@ -126,7 +126,7 @@ class arq_viz:
         #self.ax.set_ylabel(self.text_y_label)
         #self.ax.legend()
         self.fig.text(0.45, 0.80, self.text_watermark, fontsize=25, color='gray', ha='right', va='bottom', alpha=0.5)
-        self.ax.hist(self.df[var_x], bins='auto')
+        self.ax.hist(self.df[var_x], bins=num_bins)
         plt.savefig(fig_name)
         plt.close()
         print(f'histogram created  [{fig_name}]')
