@@ -56,7 +56,7 @@ class arq_viz:
     def watermark(self, text):
         self.text_watermark = text
 
-    def line_chart(self, fig_name, var_x, var_y):
+    def line_chart(self, fig_name, var_x, var_y, watermark_loc=''):
         self.fig, self.ax = plt.subplots()
 
         self.fig.suptitle(self.text_plot_suptitle, fontsize=16)
@@ -64,18 +64,34 @@ class arq_viz:
         for axis in ['bottom','left']:  #'top', 'right'
             self.ax.spines[axis].set_linewidth(2)
             self.ax.spines[axis].set_color('red')
-          
-        self.ax.plot(self.df[var_x], self.df[var_y], color='b', label='test')
+        
+        i = 0
+        if type(var_y) == list:
+            for each_var_y in var_y:
+                self.ax.plot(self.df[var_x], self.df[each_var_y], color=colors[i], label=each_var_y)
+                i += 1
+        
+        else:
+            self.ax.plot(self.df[var_x], self.df[var_y], color=colors[0], label=var_y)
+
         self.ax.set(title=self.text_plot_title)
         self.ax.set_xlabel(self.text_x_label)
-        self.ax.set_ylabel(self.text_y_label)
+        #self.ax.set_ylabel(self.text_y_label)
         self.ax.legend()
-        self.fig.text(0.85, 0.15, self.text_watermark, fontsize=25, color='gray', ha='right', va='bottom', alpha=0.5)
+        
+        if watermark_loc=='lower_right':
+            self.fig.text(0.85, 0.15, self.text_watermark, fontsize=25, color='gray', ha='right', va='bottom', alpha=0.5)
+
+        elif watermark_loc=='lower_left':
+            self.fig.text(0.25, 0.15, self.text_watermark, fontsize=25, color='gray', ha='right', va='bottom', alpha=0.5)
+
+        #self.fig.text(0.85, 0.15, self.text_watermark, fontsize=25, color='gray', ha='right', va='bottom', alpha=0.5)
         plt.savefig(fig_name)
         plt.close()
         print(f'line chart created  [{fig_name}]')
 
-    def scatter(self, fig_name, var_x, var_y):
+
+    def scatter(self, fig_name, var_x, var_y, watermark_loc=''):
         self.fig, self.ax = plt.subplots()
 
         self.fig.suptitle(self.text_plot_suptitle, fontsize=16)
@@ -90,11 +106,19 @@ class arq_viz:
                 self.ax.scatter(self.df[var_x], self.df[each_var_y], color=colors[i], label=each_var_y)
                 i += 1
         
+        else:
+            self.ax.scatter(self.df[var_x], self.df[var_y], color=colors[0], label=var_y)
+
         self.ax.set(title=self.text_plot_title)
         self.ax.set_xlabel(self.text_x_label)
         #self.ax.set_ylabel(self.text_y_label)
         self.ax.legend()
-        self.fig.text(0.25, 0.15, self.text_watermark, fontsize=25, color='gray', ha='right', va='bottom', alpha=0.5)
+        
+        if watermark_loc=='lower_right':
+            self.fig.text(0.85, 0.15, self.text_watermark, fontsize=25, color='gray', ha='right', va='bottom', alpha=0.5)
+        elif watermark_loc=='lower_left':
+            self.fig.text(0.25, 0.15, self.text_watermark, fontsize=25, color='gray', ha='right', va='bottom', alpha=0.5)
+        
         plt.savefig(fig_name)
         plt.close()
         print(f'scatter plot created  [{fig_name}]')
